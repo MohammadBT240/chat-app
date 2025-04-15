@@ -7,10 +7,10 @@ import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
 
 import { connectDb } from "./lib/db.js";
+import { app, server } from "./lib/socket.js";
 
 dotenv.config();
 const port = process.env.PORT;
-const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
@@ -27,7 +27,7 @@ app.use(express.json({ limit: "10mb", extended: true }));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/message", messageRoutes);
-app.listen(port, () => {
+server.listen(port, () => {
   console.log("Server running on port:" + port);
   connectDb();
 });
